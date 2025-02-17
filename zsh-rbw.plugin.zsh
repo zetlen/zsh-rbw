@@ -22,8 +22,12 @@ function rbwpw {
 
 function _rbwpw {
   local -a services
-  services=("${(@f)$(rbw ls 2>/dev/null)}")
+  services=("${(@f)$(rbw ls --fields name,folder,user | column -t 2>/dev/null)}")
   [[ -n "$services" ]] && compadd -a -- services
+}
+
+_fzf_complete_rbwpw() {
+  _fzf_complete 
 }
 
 compdef _rbwpw rbwpw
